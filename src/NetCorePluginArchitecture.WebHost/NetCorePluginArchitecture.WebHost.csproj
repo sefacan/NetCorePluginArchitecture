@@ -1,8 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetCorePluginArchitecture.PluginCore\NetCorePluginArchitecture.PluginCore.csproj" />
   </ItemGroup>
+
+  <UsingTask AssemblyFile="$(SolutionDir)build\$(TargetFramework)\NetCorePluginArchitecture.MSBuildTask.dll" TaskName="CopyModuleTask" />
+  <Target Name="CopyModule" AfterTargets="AfterBuild">
+    <CopyModuleTask ProjectDir="$(ProjectDir)" PluginDir="$(SolutionDir)/src/Plugins" BuildConfiguration="$(ConfigurationName)" TargetFramework="$(TargetFramework)" />
+  </Target>
 </Project>

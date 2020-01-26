@@ -19,13 +19,17 @@ namespace NetCorePluginArchitecture.WebHost.Controllers
         public IActionResult Index()
         {
             var plugins = _pluginContext.Plugins;
-            var pluginType = plugins.FirstOrDefault().Assembly.GetTypes()
-                     .FirstOrDefault(t => typeof(IPlugin).IsAssignableFrom(t) && !t.IsAbstract);
-            var plugin = (IPlugin)ActivatorUtilities.GetServiceOrCreateInstance(HttpContext.RequestServices, pluginType);
+            if (plugins.Any())
+            {
+                var pluginType = plugins.FirstOrDefault().Assembly.GetTypes()
+                         .FirstOrDefault(t => typeof(IPlugin).IsAssignableFrom(t) && !t.IsAbstract);
+                var plugin = (IPlugin)ActivatorUtilities.GetServiceOrCreateInstance(HttpContext.RequestServices, pluginType);
 
-            ViewBag.PluginName = plugin.GetPluginName();
+                ViewBag.PluginName = plugin.GetPluginName();
+            }
+
             ViewBag.Plugins = plugins;
-            
+
             return View();
         }
 

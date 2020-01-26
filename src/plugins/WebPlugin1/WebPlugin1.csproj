@@ -2,15 +2,16 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <CopyDestionationPath>..\..\NetCorePluginArchitecture.WebHost\Plugins</CopyDestionationPath>
+    <!--<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>-->
+    <!--<CopyDestionationPath>..\..\NetCorePluginArchitecture.WebHost\Plugins</CopyDestionationPath>-->
   </PropertyGroup>
-  <Target Name="CopyOutputToDestination" AfterTargets="AfterBuild">
+  <!--<Target Name="CopyOutputToDestination" AfterTargets="AfterBuild">
     <ItemGroup>
       <OutputFiles Include="$(OutDir)**\*"></OutputFiles>
     </ItemGroup>
     <Message Text="Copying output file to destination: @(OutputFiles)" Importance="high" />
     <Copy SourceFiles="@(OutputFiles)" DestinationFolder="$(CopyDestionationPath)\$(ProjectName)\%(RecursiveDir)" OverwriteReadOnlyFiles="true"></Copy>
-  </Target>
+  </Target>-->
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
@@ -19,9 +20,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NetCorePluginArchitecture.PluginCore\NetCorePluginArchitecture.PluginCore.csproj">
-      <Private>false</Private>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
+    <ProjectReference Include="..\..\NetCorePluginArchitecture.PluginCore\NetCorePluginArchitecture.PluginCore.csproj" />
   </ItemGroup>
 </Project>

@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCorePluginArchitecture.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCorePluginArchitecture.PluginCore", "src\NetCorePluginArchitecture.PluginCore\NetCorePluginArchitecture.PluginCore.csproj", "{02D81FDA-AF73-4205-9EA9-B3B67E27821B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleCopyTask", "src\ModuleCopyTask\ModuleCopyTask.csproj", "{4D6A6A4D-2738-4D29-ABD2-52F232E1B26A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPlugin1", "src\plugins\WebPlugin1\WebPlugin1.csproj", "{6B8FB376-B598-4819-81D8-AB1DB211DB3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebPlugin1", "src\plugins\WebPlugin1\WebPlugin1.csproj", "{6B8FB376-B598-4819-81D8-AB1DB211DB3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{02D81FDA-AF73-4205-9EA9-B3B67E27821B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02D81FDA-AF73-4205-9EA9-B3B67E27821B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02D81FDA-AF73-4205-9EA9-B3B67E27821B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D6A6A4D-2738-4D29-ABD2-52F232E1B26A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D6A6A4D-2738-4D29-ABD2-52F232E1B26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D6A6A4D-2738-4D29-ABD2-52F232E1B26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D6A6A4D-2738-4D29-ABD2-52F232E1B26A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6B8FB376-B598-4819-81D8-AB1DB211DB3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B8FB376-B598-4819-81D8-AB1DB211DB3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B8FB376-B598-4819-81D8-AB1DB211DB3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
