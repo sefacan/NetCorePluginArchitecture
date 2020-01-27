@@ -1,20 +1,20 @@
 ﻿using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using System;
-using System.Diagnostics;
 using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace NetCorePluginArchitecture.MSBuildTask
 {
     public class CopyModuleTask : Task
     {
-        private readonly string pluginFileName = "plugin.json";
+        private const string pluginManifestName = "plugin.json";
 
         [Required]
-        public string ProjectDir { get; set; }
+        public string PluginSourcePath { get; set; }
 
         [Required]
-        public string PluginDir { get; set; }
+        public string PluginOutputPath { get; set; }
 
         [Required]
         public string BuildConfiguration { get; set; }
@@ -24,16 +24,33 @@ namespace NetCorePluginArchitecture.MSBuildTask
 
         public override bool Execute()
         {
-            foreach (var dir in Directory.GetDirectories(PluginDir))
+            foreach (var dir in Directory.GetDirectories(PluginSourcePath))
             {
-                if (!File.Exists(Path.Combine(dir, pluginFileName)))
+                var pluginFolder = Path.GetFileName(dir);
+                var pluginAssemblyPath = Path.Combine(dir, pluginFolder + ".dll");
+                if (!File.Exists(pluginAssemblyPath))
+                    continue;
+
+                var pluginManifestFile = Path.Combine(dir, pluginManifestName);
+                if (!File.Exists(pluginManifestFile))
+                    continue;
+
+                PluginInfo pluginInfo = null;
+                using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(pluginManifestFile))))
+                {
+                    var dataContractJsonSerializer = new DataContractJsonSerializer(typeof(PluginInfo));
+                    pluginInfo= dataContractJsonSerializer.ReadObject(ms) as PluginInfo;
+                }
+
+                if (pluginInfo == null)
                     continue;
 
                 var sourceDir = Path.Combine(dir, "bin", BuildConfiguration, TargetFramework);
-                var destinationDir = Path.Combine(ProjectDir, "Plugins", dir);
+                var destinationDir = Path.Combine(PluginOutputPath, dir);
+
                 CopyDirectory(sourceDir, destinationDir);
 
-                Log.LogMessage(MessageImportance.High, $"Copied plugin {new DirectoryInfo(dir).Name}");
+                Log.LogMessage(MessageImportance.High, $"Copied plugin {destinationDir}");
             }
 
             return true;

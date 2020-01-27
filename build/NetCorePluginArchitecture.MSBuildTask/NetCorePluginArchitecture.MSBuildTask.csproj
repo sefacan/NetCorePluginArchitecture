@@ -1,16 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
-    <!--<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>-->
-    <!--<CopyDestionationPath>$(SolutionDir)/$(TargetFramework)</CopyDestionationPath>-->
+    <TargetFrameworks>netcoreapp3.1;net46</TargetFrameworks>
   </PropertyGroup>
-  <!--<Target Name="CopyOutputToDestination" AfterTargets="AfterBuild">
-    <ItemGroup>
-      <OutputFiles Include="$(OutDir)**\*"></OutputFiles>
-    </ItemGroup>
-    <Copy SourceFiles="@(OutputFiles)" DestinationFolder="$(CopyDestionationPath)\%(RecursiveDir)" OverwriteReadOnlyFiles="true"></Copy>
-  </Target>-->
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.4.0" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.9.20" />
   </ItemGroup>
 </Project>
