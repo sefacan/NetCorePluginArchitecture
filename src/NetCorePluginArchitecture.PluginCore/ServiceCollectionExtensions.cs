@@ -36,29 +36,29 @@ namespace Microsoft.Extensions.DependencyInjection
                     pluginInfo = JsonSerializer.Deserialize<PluginInfo>(content);
                 }
 
-                if (pluginInfo != null)
+                if (pluginInfo == null)
+                    continue;
+
+                var pluginLoadContext = new PluginLoadContext(pluginAssemblyPath);
+
+                pluginInfo.Assembly = pluginLoadContext.LoadDefaultAssembly();
+                pluginContext.Plugins.Add(pluginInfo);
+
+                var partFactory = ApplicationPartFactory.GetApplicationPartFactory(pluginInfo.Assembly);
+                foreach (var part in partFactory.GetApplicationParts(pluginInfo.Assembly))
                 {
-                    var pluginLoadContext = new PluginLoadContext(pluginAssemblyPath);
+                    mvcBuilder.PartManager.ApplicationParts.Add(part);
+                }
 
-                    pluginInfo.Assembly = pluginLoadContext.LoadDefaultAssembly();
-                    pluginContext.Plugins.Add(pluginInfo);
-
-                    var partFactory = ApplicationPartFactory.GetApplicationPartFactory(pluginInfo.Assembly);
-                    foreach (var part in partFactory.GetApplicationParts(pluginInfo.Assembly))
+                // This piece finds and loads related parts, such as WebPlugin1.Views.dll
+                var relatedAssembliesAttrs = pluginInfo.Assembly.GetCustomAttributes<RelatedAssemblyAttribute>();
+                foreach (var attr in relatedAssembliesAttrs)
+                {
+                    var assembly = pluginLoadContext.LoadFromAssemblyName(new AssemblyName(attr.AssemblyFileName));
+                    partFactory = ApplicationPartFactory.GetApplicationPartFactory(assembly);
+                    foreach (var part in partFactory.GetApplicationParts(assembly))
                     {
                         mvcBuilder.PartManager.ApplicationParts.Add(part);
-                    }
-
-                    // This piece finds and loads related parts, such as WebPlugin1.Views.dll
-                    var relatedAssembliesAttrs = pluginInfo.Assembly.GetCustomAttributes<RelatedAssemblyAttribute>();
-                    foreach (var attr in relatedAssembliesAttrs)
-                    {
-                        var assembly = pluginLoadContext.LoadFromAssemblyName(new AssemblyName(attr.AssemblyFileName));
-                        partFactory = ApplicationPartFactory.GetApplicationPartFactory(assembly);
-                        foreach (var part in partFactory.GetApplicationParts(assembly))
-                        {
-                            mvcBuilder.PartManager.ApplicationParts.Add(part);
-                        }
                     }
                 }
             }

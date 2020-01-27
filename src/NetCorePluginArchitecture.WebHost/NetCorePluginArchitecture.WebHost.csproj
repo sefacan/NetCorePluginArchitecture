@@ -6,8 +6,13 @@
     <ProjectReference Include="..\NetCorePluginArchitecture.PluginCore\NetCorePluginArchitecture.PluginCore.csproj" />
   </ItemGroup>
 
-  <UsingTask AssemblyFile="$(SolutionDir)build\$(TargetFramework)\NetCorePluginArchitecture.MSBuildTask.dll" TaskName="CopyModuleTask" />
+  <PropertyGroup>
+    <TaskFolder Condition=" '$(MSBuildRuntimeType)' == 'Core' ">$(TargetFramework)</TaskFolder>
+    <TaskFolder Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net46</TaskFolder>
+  </PropertyGroup>
+  <UsingTask AssemblyFile="$(SolutionDir)build\$(TaskFolder)\NetCorePluginArchitecture.MSBuildTask.dll" TaskName="CopyModuleTask" />
+
   <Target Name="CopyModule" AfterTargets="AfterBuild">
-    <CopyModuleTask ProjectDir="$(ProjectDir)" PluginDir="$(SolutionDir)/src/Plugins" BuildConfiguration="$(ConfigurationName)" TargetFramework="$(TargetFramework)" />
+    <CopyModuleTask PluginOutputPath="../NetCorePluginArchitecture.WebHost/Plugins" PluginSourcePath="../Plugins" BuildConfiguration="$(ConfigurationName)" TargetFramework="$(TargetFramework)" />
   </Target>
 </Project>

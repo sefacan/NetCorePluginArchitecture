@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCorePluginArchitecture.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCorePluginArchitecture.PluginCore", "src\NetCorePluginArchitecture.PluginCore\NetCorePluginArchitecture.PluginCore.csproj", "{02D81FDA-AF73-4205-9EA9-B3B67E27821B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebPlugin1", "src\plugins\WebPlugin1\WebPlugin1.csproj", "{6B8FB376-B598-4819-81D8-AB1DB211DB3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebPlugin1", "src\Plugins\WebPlugin1\WebPlugin1.csproj", "{6B8FB376-B598-4819-81D8-AB1DB211DB3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
